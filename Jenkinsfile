@@ -4,8 +4,10 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                image 'node:18-alpine'
-                resueNode true
+                docker {
+                    image 'node:18-alpine'
+                    resueNode true
+                }
             }
             steps {
                 sh '''
