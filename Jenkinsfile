@@ -8,7 +8,6 @@ pipeline {
 
     stages {
         
-
         stage('Build') {
             agent {
                 docker {
@@ -50,7 +49,7 @@ pipeline {
                         junit 'jest-results/junit.xml'
                     }
                 }
-            }
+        }
 
             stage('E2E') {
                 agent {
@@ -110,16 +109,15 @@ pipeline {
                 sh '''
                     npx playwright test  --reporter=html
                 '''
-        }
+			}
+		}
 
         post{
             always{
                 junit 'jest-results/junit.xml'
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright E2E Report', reportTitles: '', useWrapperFileDirectly: true])
-            }
-        }
-        }
-            }
+				}
+			}
         }
     }
 }
